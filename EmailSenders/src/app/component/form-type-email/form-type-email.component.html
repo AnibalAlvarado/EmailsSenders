@@ -1,0 +1,28 @@
+<div class="email-form-container mat-elevation-z4">
+    <h2 class="form-title">Enviar Correo</h2>
+  
+    <form [formGroup]="emailForm" (ngSubmit)="sendEmail()">
+      <mat-form-field appearance="fill">
+        <mat-label>Correo electrónico</mat-label>
+        <mat-icon matPrefix>email</mat-icon>
+        <input matInput placeholder="correo@ejemplo.com" formControlName="email" type="email" />
+        <mat-error *ngIf="emailForm.get('email')?.hasError('required')">Este campo es requerido</mat-error>
+        <mat-error *ngIf="emailForm.get('email')?.hasError('email')">Correo no válido</mat-error>
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill">
+        <mat-label>Tipo de Correo</mat-label>
+        <mat-select formControlName="type">
+          <mat-option *ngFor="let tipo of emailTypes" [value]="tipo.value">
+            {{ tipo.label }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="emailForm.get('type')?.hasError('required')">Debes seleccionar una opción</mat-error>
+      </mat-form-field>
+  
+      <button mat-flat-button color="primary" type="submit" [disabled]="emailForm.invalid">
+        <mat-icon>send</mat-icon>&nbsp;Enviar Correo
+      </button>
+    </form>
+  </div>
+  
